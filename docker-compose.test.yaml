@@ -1,0 +1,37 @@
+# This override file should be used when running automated tests so
+# that test output is saved to the host
+
+services:
+  ffc-pay-alerting:
+    build:
+      target: development
+    image: ffc-pay-alerting-development
+    container_name: ffc-pay-alerting-test
+    command: npm run test
+    volumes:
+      - ./app:/home/node/app
+      - ./test:/home/node/test
+      - ./test-output:/home/node/test-output
+      - ./jest.config.js:/home/node/jest.config.js
+      - ./package.json:/home/node/package.json
+    environment:
+      NOTIFY_API_KEY: A_TEST_KEY
+      DEV_TEAM_EMAILS: testDev@test.com
+      DEBT_ENRICHMENT_EMAILS: testDebt@test.com
+      INVALID_BANK_DETAILS_EMAILS: testBank@test.com
+      CORE_SOLUTIONS_TEAM_EMAILS: testCore@test.com
+      SFI_EMAILS: testSFI@test.com
+      ES_EMAILS: testES@test.com
+      FC_EMAILS: testFC@test.com
+      TRADER_EMAILS: testTrader@test.com
+      VET_VISITS_EMAILS: testVets@test.com
+      FINANCE_EMAILS: testFinance@test.com
+      OPS_ANALYSIS_EMAILS: testOps@test.com
+      DEMOGRAPHICS_EMAILS: testDemographics@test.com
+      DAX_UNAVAILABLE_EMAILS: testDAX@test.com
+      ESFIO_DAX_EMAILS: testESFIO@test.com
+      D365_UNSETTLED_EMAILS: testUnsettled@test.com
+      BPS_EMAILS: testBPS@test.com
+      CS_EMAILS: testCS@test.com
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-pay-responses-azurite:10000/devstoreaccount1;
+

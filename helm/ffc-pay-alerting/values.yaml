@@ -1,0 +1,68 @@
+environment: production
+environmentCode:
+name: ffc-pay-alerting
+namespace: ffc-pay
+workstream: ffc-pay
+image: ffc-pay-alerting
+
+labels:
+  component: service
+
+appInsights:
+  connectionString:
+
+containerConfigMap:
+  name: ffc-pay-alerting-config-map
+
+containerSecret:
+  name: ffc-pay-alerting-container-secret
+  type: Opaque
+
+deployment:
+  minReplicas: 1
+  maxReplicas: 1
+  cpuThreshold: 80
+  memoryThreshold: 80
+
+container:
+  requestMemory: 100Mi
+  requestCpu: 100m
+  limitMemory: 100Mi
+  limitCpu: 100m
+  messageQueueHost: namespace.servicebus.windows.net
+  alertTopicAddress: ffc-pay-alert
+  alertSubscriptionAddress: ffc-pay-alerting
+  notifyApiKey:
+  devTeamEmails:
+  debtEnrichmentEmails:
+  invalidBankDetailsEmails:
+  coreSolutionsTeamEmails:
+  sfiEmails:
+  esEmails:
+  fcEmails:
+  traderEmails:
+  vetVisitsEmails:
+  opsAnalysisEmails:
+  financeEmails:
+  demographicsEmails:
+  daxUnavailableEmails:
+  esfioDAXEmails:
+  d365UnsettledEmails:
+  bpsEmails:
+  csEmails:
+  sendAlerts: true
+  azureStorageConnectionString: dummy
+  azureStorageAccountName: ffcpay
+  storageContainer: dax
+  inboundFolder: inbound
+  archiveFolder: archive
+  quarantineFolder: quarantine
+  returnFolder: return
+  azureStorageUseConnectionString: false
+  azureStorageCreateContainers: false
+
+aadPodIdentity: true
+
+azureIdentity:
+  clientID: not-a-real-clientID
+  resourceID: not-a-real-resourceID

@@ -1,0 +1,46 @@
+services:
+  ffc-pay-alerting:
+    build:
+      context: .
+      target: production
+    image: ffc-pay-alerting
+    container_name: ffc-pay-alerting
+    depends_on:
+      - ffc-pay-responses-azurite
+    environment:
+      APPINSIGHTS_CLOUDROLE: ffc-pay-alerting-local
+      APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
+      MESSAGE_QUEUE_HOST: ${MESSAGE_QUEUE_HOST}
+      MESSAGE_QUEUE_PASSWORD: ${MESSAGE_QUEUE_PASSWORD}
+      MESSAGE_QUEUE_USER: ${MESSAGE_QUEUE_USER}
+      ALERT_TOPIC_ADDRESS: ${EVENT_TOPIC_ADDRESS:-ffc-pay-alert}${MESSAGE_QUEUE_SUFFIX}
+      ALERT_SUBSCRIPTION_ADDRESS: ${EVENT_SUBSCRIPTION_ADDRESS:-ffc-pay-alerting}${MESSAGE_QUEUE_SUFFIX}
+      NOTIFY_API_KEY: ${NOTIFY_API_KEY}
+      DEV_TEAM_EMAILS: ${DEV_TEAM_EMAILS}
+      DEBT_ENRICHMENT_EMAILS: ${DEBT_ENRICHMENT_EMAILS}
+      INVALID_BANK_DETAILS_EMAILS: ${INVALID_BANK_DETAILS_EMAILS}
+      CORE_SOLUTIONS_TEAM_EMAILS: ${CORE_SOLUTIONS_TEAM_EMAILS}
+      SFI_EMAILS: ${SFI_EMAILS}
+      ES_EMAILS: ${ES_EMAILS}
+      FC_EMAILS: ${FC_EMAILS}
+      TRADER_EMAILS: ${TRADER_EMAILS}
+      VET_VISITS_EMAILS: ${VET_VISITS_EMAILS}
+      OPS_ANALYSIS_EMAILS: ${OPS_ANALYSIS_EMAILS}
+      FINANCE_EMAILS: ${FINANCE_EMAILS}
+      DEMOGRAPHICS_EMAILS: ${DEMOGRAPHICS_EMAILS}
+      DAX_UNAVAILABLE_EMAILS: ${DAX_UNAVAILABLE_EMAILS}
+      ESFIO_DAX_EMAILS: ${ESFIO_DAX_EMAILS}
+      D365_UNSETTLED_EMAILS: ${D365_UNSETTLED_EMAILS}
+      BPS_EMAILS: ${BPS_EMAILS}
+      CS_EMAILS: ${CS_EMAILS}
+      FFC_ENVIRONMENT: local
+      AZURE_STORAGE_ACCOUNT_NAME: ${AZURE_STORAGE_ACCOUNT_NAME:-devstoreaccount1}
+      AZURE_STORAGE_USE_CONNECTION_STRING: "true"
+      AZURE_STORAGE_CREATE_CONTAINERS: "true"
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-pay-responses-azurite:10000/devstoreaccount1;
+
+  ffc-pay-responses-azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:3.32.0
+    command: "azurite-blob --skipApiVersionCheck --loose --blobHost 0.0.0.0"
+    labels:
+      com.docker.compose.pay.role: ffc-pay-responses-azurite

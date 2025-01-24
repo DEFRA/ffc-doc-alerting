@@ -1,0 +1,8 @@
+{{- include "ffc-helm-library.deployment" (list . "ffc-pay-alerting.deployment") -}}
+{{- define "ffc-pay-alerting.deployment" -}}
+spec:
+  template:
+    spec:
+      containers:
+      - {{ include "ffc-helm-library.container" (list . "ffc-pay-alerting.container") }}
+{{- end -}}
