@@ -2,11 +2,11 @@
 # to provide dependencies and expose ports for local testing
 
 services:
-  ffc-pay-alerting:
+  ffc-doc-alerting:
     build:
       target: development
-    image: ffc-pay-alerting-development
-    container_name: ffc-pay-alerting-development
+    image: ffc-doc-alerting-development
+    container_name: ffc-doc-alerting-development
     ports:
       - "9329:9229"
     volumes:
