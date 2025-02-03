@@ -1,9 +1,9 @@
 environment: production
 environmentCode:
-name: ffc-pay-alerting
+name: ffc-doc-alerting
 namespace: ffc-pay
 workstream: ffc-pay
-image: ffc-pay-alerting
+image: ffc-doc-alerting
 
 labels:
   component: service
@@ -12,10 +12,10 @@ appInsights:
   connectionString:
 
 containerConfigMap:
-  name: ffc-pay-alerting-config-map
+  name: ffc-doc-alerting-config-map
 
 containerSecret:
-  name: ffc-pay-alerting-container-secret
+  name: ffc-doc-alerting-container-secret
   type: Opaque
 
 deployment:
@@ -31,7 +31,7 @@ container:
   limitCpu: 100m
   messageQueueHost: namespace.servicebus.windows.net
   alertTopicAddress: ffc-pay-alert
-  alertSubscriptionAddress: ffc-pay-alerting
+  alertSubscriptionAddress: ffc-doc-alerting
   notifyApiKey:
   devTeamEmails:
   debtEnrichmentEmails:

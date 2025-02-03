@@ -1,2 +1,2 @@
-{{- define "ffc-pay-alerting.container" -}}
+{{- define "ffc-doc-alerting.container" -}}
 {{- end -}}

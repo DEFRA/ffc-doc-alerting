@@ -1,5 +1,5 @@
 services:
-  ffc-pay-alerting:
+  ffc-doc-alerting:
     command: >
       sh -c "npm run test:watch"
     volumes:

@@ -2,11 +2,11 @@
 # that test output is saved to the host
 
 services:
-  ffc-pay-alerting:
+  ffc-doc-alerting:
     build:
       target: development
-    image: ffc-pay-alerting-development
-    container_name: ffc-pay-alerting-test
+    image: ffc-doc-alerting-development
+    container_name: ffc-doc-alerting-test
     command: npm run test
     volumes:
       - ./app:/home/node/app

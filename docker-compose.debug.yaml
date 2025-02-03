@@ -1,3 +1,3 @@
 services:
-  ffc-pay-alerting:
+  ffc-doc-alerting:
     command: npm run start:debug

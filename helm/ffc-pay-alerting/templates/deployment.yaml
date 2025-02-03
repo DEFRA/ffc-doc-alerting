@@ -1,8 +1,8 @@
-{{- include "ffc-helm-library.deployment" (list . "ffc-pay-alerting.deployment") -}}
-{{- define "ffc-pay-alerting.deployment" -}}
+{{- include "ffc-helm-library.deployment" (list . "ffc-doc-alerting.deployment") -}}
+{{- define "ffc-doc-alerting.deployment" -}}
 spec:
   template:
     spec:
       containers:
-      - {{ include "ffc-helm-library.container" (list . "ffc-pay-alerting.container") }}
+      - {{ include "ffc-helm-library.container" (list . "ffc-doc-alerting.container") }}
 {{- end -}}

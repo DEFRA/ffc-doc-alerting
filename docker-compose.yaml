@@ -1,20 +1,20 @@
 services:
-  ffc-pay-alerting:
+  ffc-doc-alerting:
     build:
       context: .
       target: production
-    image: ffc-pay-alerting
-    container_name: ffc-pay-alerting
+    image: ffc-doc-alerting
+    container_name: ffc-doc-alerting
     depends_on:
       - ffc-pay-responses-azurite
     environment:
-      APPINSIGHTS_CLOUDROLE: ffc-pay-alerting-local
+      APPINSIGHTS_CLOUDROLE: ffc-doc-alerting-local
       APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
       MESSAGE_QUEUE_HOST: ${MESSAGE_QUEUE_HOST}
       MESSAGE_QUEUE_PASSWORD: ${MESSAGE_QUEUE_PASSWORD}
       MESSAGE_QUEUE_USER: ${MESSAGE_QUEUE_USER}
       ALERT_TOPIC_ADDRESS: ${EVENT_TOPIC_ADDRESS:-ffc-pay-alert}${MESSAGE_QUEUE_SUFFIX}
-      ALERT_SUBSCRIPTION_ADDRESS: ${EVENT_SUBSCRIPTION_ADDRESS:-ffc-pay-alerting}${MESSAGE_QUEUE_SUFFIX}
+      ALERT_SUBSCRIPTION_ADDRESS: ${EVENT_SUBSCRIPTION_ADDRESS:-ffc-doc-alerting}${MESSAGE_QUEUE_SUFFIX}
       NOTIFY_API_KEY: ${NOTIFY_API_KEY}
       DEV_TEAM_EMAILS: ${DEV_TEAM_EMAILS}
       DEBT_ENRICHMENT_EMAILS: ${DEBT_ENRICHMENT_EMAILS}
