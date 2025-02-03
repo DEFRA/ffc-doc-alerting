@@ -1,3 +1,3 @@
 module.exports = {
-  TYPE: 'uk.gov.defra.ffc.pay.warning.payment.rejected'
+  TYPE: 'uk.gov.defra.ffc.doc.warning.processing.subscription.failed'
 }
