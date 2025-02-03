@@ -1,6 +1,6 @@
 apiVersion: v2
 description: Event hub
-name: ffc-pay-alerting
+name: ffc-doc-alerting
 # this version is automatically updated in the build pipeline
 version: 1.0.0
 dependencies:

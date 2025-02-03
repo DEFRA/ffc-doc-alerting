@@ -1,5 +1,5 @@
 {{- if .Values.aadPodIdentity }}
-{{- include "ffc-helm-library.azure-identity-binding" (list . "ffc-pay-alerting.azure-identity-binding") -}}
+{{- include "ffc-helm-library.azure-identity-binding" (list . "ffc-doc-alerting.azure-identity-binding") -}}
 {{- end }}
-{{- define "ffc-pay-alerting.azure-identity-binding" -}}
+{{- define "ffc-doc-alerting.azure-identity-binding" -}}
 {{- end -}}
