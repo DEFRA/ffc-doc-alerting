@@ -23,5 +23,12 @@ module.exports = {
     [sourceSystems.CS]: `${alertConfig.csEmails};${alertConfig.devTeamEmails}`,
     [sourceSystems.BPS]: `${alertConfig.bpsEmails};${alertConfig.devTeamEmails}`,
     default: `${alertConfig.demographicsEmails};${alertConfig.devTeamEmails}`
+  },
+  [events.ETL_PROCESS_ERROR]: {
+    [sourceSystems.DELINKED]: `${alertConfig.opsAnalysisEmails};${alertConfig.demographicsEmails};${alertConfig.devTeamEmails}`,
+    [sourceSystems.SFI_EXPANDED]: `${alertConfig.opsAnalysisEmails};${alertConfig.demographicsEmails};${alertConfig.devTeamEmails}`,
+    [sourceSystems.CS]: `${alertConfig.csEmails};${alertConfig.devTeamEmails}`,
+    [sourceSystems.BPS]: `${alertConfig.bpsEmails};${alertConfig.devTeamEmails}`,
+    default: `${alertConfig.demographicsEmails};${alertConfig.devTeamEmails}`
   }
 }
