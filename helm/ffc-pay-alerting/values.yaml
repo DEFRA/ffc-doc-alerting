@@ -1,8 +1,8 @@
 environment: production
 environmentCode:
 name: ffc-doc-alerting
-namespace: ffc-pay
-workstream: ffc-pay
+namespace: ffc-doc
+workstream: ffc-doc
 image: ffc-doc-alerting
 
 labels:
