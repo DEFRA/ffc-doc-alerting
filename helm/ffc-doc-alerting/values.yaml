@@ -34,22 +34,6 @@ container:
   alertSubscriptionAddress: ffc-doc-alerting
   notifyApiKey:
   devTeamEmails:
-  debtEnrichmentEmails:
-  invalidBankDetailsEmails:
-  coreSolutionsTeamEmails:
-  sfiEmails:
-  esEmails:
-  fcEmails:
-  traderEmails:
-  vetVisitsEmails:
-  opsAnalysisEmails:
-  financeEmails:
-  demographicsEmails:
-  daxUnavailableEmails:
-  esfioDAXEmails:
-  d365UnsettledEmails:
-  bpsEmails:
-  csEmails:
   sendAlerts: true
   azureStorageConnectionString: dummy
   azureStorageAccountName: ffcpay
