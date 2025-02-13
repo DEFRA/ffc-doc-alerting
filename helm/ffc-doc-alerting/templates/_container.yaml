@@ -1,0 +1,2 @@
+{{- define "ffc-doc-alerting.container" -}}
+{{- end -}}

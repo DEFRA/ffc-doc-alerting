@@ -1,0 +1,28 @@
+{{- include "ffc-helm-library.container-config-map" (list . "ffc-doc-alerting.config-map") -}}
+{{- define "ffc-doc-alerting.config-map" -}}
+data:
+  NODE_ENV: {{ quote .Values.environment }}
+  APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
+  MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
+  {{- if and (.Values.environmentCode) (not .Values.pr) }}
+  ALERT_TOPIC_ADDRESS: {{ .Values.container.alertTopicAddress }}-{{ .Values.environmentCode }}
+  {{ else }}
+  ALERT_TOPIC_ADDRESS: {{ quote .Values.container.alertTopicAddress }}
+  {{- end }}
+  ALERT_SUBSCRIPTION_ADDRESS: {{ quote .Values.container.alertSubscriptionAddress }}
+  {{- if .Values.container.devTeamEmails }}
+  DEV_TEAM_EMAILS: {{ quote .Values.container.devTeamEmails }}
+  {{- end }}
+  FFC_ENVIRONMENT: {{ quote .Values.environmentCode }}
+  NOTIFY_API_KEY: {{ quote .Values.container.notifyApiKey }}
+  SEND_ALERTS: {{ quote .Values.container.sendAlerts }}
+  AZURE_STORAGE_CONNECTION_STRING: {{ quote .Values.container.azureStorageConnectionString }}
+  AZURE_STORAGE_ACCOUNT_NAME: {{ quote .Values.container.azureStorageAccountName }}
+  AZURE_STORAGE_CONTAINER: {{ quote .Values.container.storageContainer }}
+  AZURE_STORAGE_INBOUND: {{ quote .Values.container.inboundFolder }}
+  AZURE_STORAGE_ARCHIVE: {{ quote .Values.container.archiveFolder }}
+  AZURE_STORAGE_QUARANTINE: {{ quote .Values.container.quarantineFolder }}
+  AZURE_STORAGE_RETURN: {{ quote .Values.container.returnFolder }}
+  AZURE_STORAGE_USE_CONNECTION_STRING: {{ quote .Values.container.azureStorageUseConnectionString }}
+  AZURE_STORAGE_CREATE_CONTAINERS: {{ quote .Values.container.azureStorageCreateContainers }}
+{{- end -}}
