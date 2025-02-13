@@ -8,7 +8,7 @@ services:
     image: ffc-doc-alerting-development
     container_name: ffc-doc-alerting-development
     ports:
-      - "9329:9229"
+      - "9429:9229"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
