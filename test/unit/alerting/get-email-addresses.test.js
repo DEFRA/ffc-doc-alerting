@@ -1,7 +1,8 @@
 const {
   PROCESSING_SUBSCRIPTION_FAILED,
   SUBMIT_SUBSCRIPTION_FAILED,
-  RETURN_SUBSCRIPTION_FAILED
+  RETURN_SUBSCRIPTION_FAILED,
+  ETL_PROCESS_ERROR
 } = require('../../../app/constants/events')
 
 const { alertConfig } = require('../../../app/config')
@@ -21,6 +22,11 @@ describe('get email addresses', () => {
 
   test('should return correct email addresses for RETURN_SUBSCRIPTION_FAILED', () => {
     const emails = getEmailAddresses(RETURN_SUBSCRIPTION_FAILED)
+    expect(emails).toEqual(`${alertConfig.devTeamEmails}`)
+  })
+
+  test('should return correct email addresses for ETL_PROCESS_ERROR', () => {
+    const emails = getEmailAddresses(ETL_PROCESS_ERROR, 'default')
     expect(emails).toEqual(`${alertConfig.devTeamEmails}`)
   })
 })

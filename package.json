@@ -1,6 +1,6 @@
 {
   "name": "ffc-doc-alerting",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Publish alerts from Document Hub warnings",
   "homepage": "https://github.com/DEFRA/ffc-doc-alerting",
   "main": "app/index.js",

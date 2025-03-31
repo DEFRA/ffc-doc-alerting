@@ -8,12 +8,14 @@ const { RECIPIENTS } = require('../../mocks/values/recipients')
 const {
   PROCESSING_SUBSCRIPTION_FAILED,
   SUBMIT_SUBSCRIPTION_FAILED,
-  RETURN_SUBSCRIPTION_FAILED
+  RETURN_SUBSCRIPTION_FAILED,
+  ETL_PROCESS_ERROR
 } = require('../../../app/constants/events')
 const {
   PROCESSING_SUBSCRIPTION_FAILED: PROCESSING_SUBSCRIPTION_FAILED_TEMPLATE,
   SUBMIT_SUBSCRIPTION_FAILED: SUBMIT_SUBSCRIPTION_FAILED_TEMPLATE,
-  RETURN_SUBSCRIPTION_FAILED: RETURN_SUBSCRIPTION_FAILED_TEMPLATE
+  RETURN_SUBSCRIPTION_FAILED: RETURN_SUBSCRIPTION_FAILED_TEMPLATE,
+  ETL_PROCESS_ERROR: ETL_PROCESS_ERROR_TEMPLATE
 } = require('../../../app/constants/templates')
 const { processAlert } = require('../../../app/alerting/process-alert')
 
@@ -43,5 +45,11 @@ describe('process alert', () => {
     event.type = RETURN_SUBSCRIPTION_FAILED
     await processAlert(event)
     expect(mockSendAlerts).toHaveBeenCalledWith(RECIPIENTS, RETURN_SUBSCRIPTION_FAILED_TEMPLATE, event)
+  })
+
+  test('should process ETL_PROCESS_ERROR event', async () => {
+    event.type = ETL_PROCESS_ERROR
+    await processAlert(event)
+    expect(mockSendAlerts).toHaveBeenCalledWith(RECIPIENTS, ETL_PROCESS_ERROR_TEMPLATE, event)
   })
 })
