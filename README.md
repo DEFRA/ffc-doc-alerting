@@ -1,8 +1,8 @@
 # Document Hub Alerting
 
-Microservice to publish alerts from Document Hub events via GOV.UK Notify.
+Microservice to publish alerts from Documents Service events via GOV.UK Notify.
 
-This service is part of the [Document Hub](https://github.com/DEFRA/ffc-pay-core).
+This service is part of the [Documents Service](https://github.com/DEFRA/ffc-pay-core).
 
 ## Prerequisites
 
@@ -29,12 +29,8 @@ This service publishes responses as messages to Azure Service Bus topics.
 | `MESSAGE_QUEUE_USER`         | Azure Service Bus SAS policy name, e.g. `RootManageSharedAccessKey`                   |
 | `MESSAGE_QUEUE_PASSWORD`     | Azure Service Bus SAS policy key                                                      |
 | `MESSAGE_QUEUE_SUFFIX`       | Developer initials, optional, will be automatically added to topic names, e.g. `-jw ` |
-| `ALERT_TOPIC_ADDRESS`        | Azure Service Bus topic name for events, e.g. `ffc-doc-alert`                         |
-| `ALERT_SUBSCRIPTION_ADDRESS` | Azure Service Bus subscription name for events, e.g. `ffc-doc-alerting`               |
-
-##### Message schemas
-
-All message schemas are fully documented in an [AsyncAPI specification](docs/asyncapi.yaml).
+| `ALERT_TOPIC_ADDRESS`        | Azure Service Bus topic name for events, e.g. `ffc-doc-alerting`                         |
+| `ALERT_SUBSCRIPTION_ADDRESS` | Azure Service Bus subscription name for events, e.g. `ffc-doc-alert`               |
 
 ## Setup
 
@@ -47,22 +43,6 @@ These configuration values should be set in the [docker-compose.yaml](docker-com
 | `APPINSIGHTS_CLOUDROLE`        | Azure App Insights cloud role                                                                        |
 | `APPINSIGHTS_CONNECTIONSTRING` | Azure App Insights connection string                                                                 |
 | `DEV_TEAM_EMAILS`              | `;` separated list of developer email addresses, receives all system issue alerts                    |
-| `DEBT_ENRICHMENT_EMAILS`       | `;` separated list of debt enrichment email addresses, receives all debt enrichment alerts           |
-| `INVALID_BANK_DETAILS_EMAILS`  | `;` separated list of invalid bank details email addresses, receives all invalid bank details alerts |
-| `CORE_SOLUTIONS_TEAM_EMAILS`   | `;` separated list of core solutions team email addresses, receives all Siti Agri alerts             |
-| `SFI_EMAILS`                   | `;` separated list of SFI email addresses, receives SFI alerts                                       |
-| `ES_EMAILS`                    | `;` separated list of ES email addresses, receives all ES alerts                                     |
-| `FC_EMAILS`                    | `;` separated list of FC email addresses, receives all FC alerts                                     |
-| `TRADER_EMAILS`                | `;` separated list of trader email addresses, receives all trader alerts                             |
-| `VET_VISITS_EMAILS`            | `;` separated list of vet visits email addresses, receives all vet visits alerts                     |
-| `OPS_ANALYSIS_EMAILS`          | `;` separated list of operations analysis email addresses, receives all operations analysis related alerts                         |
-| `FINANCE_EMAILS`               | `;` separated list of finance email addresses, receives all Expanded SFI Offer alerts     |
-| `DEMOGRAPHICS_EMAILS`          | `;` separated list of demographics email addresses, receives all Expanded SFI Offer alerts     |
-| `DAX_UNAVAILABLE_EMAILS`       | `;` separated list of DAX unavailable email addresses, receives all Expanded SFI Offer alerts     |
-| `ESFIO_DAX_EMAILS`             | `;` separated list of ESFIO DAX email addresses, receives all Expanded SFI Offer alerts     |
-| `D365_UNSETTLED_EMAILS`        | `;` separated list of D365 unsettled email addresses, receives all Expanded SFI Offer alerts     |
-| `BPS_EMAILS`                   | `;` separated list of BPS email addresses, receives all Expanded SFI Offer alerts     |
-| `CS_EMAILS`                    | `;` separated list of CS email addresses, receives all Expanded SFI Offer alerts     |
 | `FFC_ENVIRONMENT`              | Environment code; `local`, `dev`, `test`, `pre` or `prod`. Defaults to `local`                       |
 | `NOTIFY_API_KEY`               | GOV.UK Notify API key                                                                                |
 | `SEND_ALERTS`                  | `true` to send alerts, `false` to log alerts only. Defaults to `true`                                |

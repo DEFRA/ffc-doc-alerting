@@ -30,22 +30,13 @@ container:
   limitMemory: 100Mi
   limitCpu: 100m
   messageQueueHost: namespace.servicebus.windows.net
-  alertTopicAddress: ffc-pay-alert
-  alertSubscriptionAddress: ffc-doc-alerting
+  alertTopicAddress: ffc-doc-alerting
+  alertSubscriptionAddress: ffc-doc-alert
   notifyApiKey:
   devTeamEmails:
   sendAlerts: true
-  azureStorageConnectionString: dummy
-  azureStorageAccountName: ffcpay
-  storageContainer: dax
-  inboundFolder: inbound
-  archiveFolder: archive
-  quarantineFolder: quarantine
-  returnFolder: return
-  azureStorageUseConnectionString: false
-  azureStorageCreateContainers: false
 
-aadPodIdentity: true
+workloadIdentity: true
 
 azureIdentity:
   clientID: not-a-real-clientID
