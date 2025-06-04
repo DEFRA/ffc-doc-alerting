@@ -17,4 +17,3 @@ services:
     environment:
       NOTIFY_API_KEY: A_TEST_KEY
       DEV_TEAM_EMAILS: testDev@test.com
-
