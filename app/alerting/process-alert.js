@@ -1,7 +1,6 @@
 const { getRecipients } = require('./get-recipients')
 const templateMap = require('../constants/template-map')
 const { sendAlerts } = require('./send-alerts')
-const sourceSystems = require('../constants/source-systems')
 
 const processAlert = async (event) => {
   const recipients = getRecipients(event)
