@@ -4,5 +4,4 @@ resources:
     - name: ffc-doc-alerting
       role: receiver
       subscriptions:
-        - ffc-doc-alert
-
+        - name: ffc-doc-alert
