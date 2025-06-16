@@ -1,6 +1,3 @@
-jest.mock('../../../app/alerting/generate-return-file')
-const { generateReturnFile: mockGenerateReturnFile } = require('../../../app/alerting/generate-return-file')
-
 jest.mock('../../../app/alerting/send-alerts')
 const { sendAlerts: mockSendAlerts } = require('../../../app/alerting/send-alerts')
 
@@ -22,7 +19,6 @@ let event
 describe('process alert', () => {
   beforeEach(() => {
     jest.resetAllMocks()
-    mockGenerateReturnFile.mockReturnValue(RECIPIENTS)
 
     event = JSON.parse(JSON.stringify(require('../../mocks/event')))
   })

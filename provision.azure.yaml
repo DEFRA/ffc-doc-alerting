@@ -1,3 +1,7 @@
 resources:
+  identity: doc-alerting
   topics:
-    - name: alert
+    - name: ffc-doc-alerting
+      role: receiver
+      subscriptions:
+        - name: ffc-doc-alert
