@@ -11,9 +11,6 @@ module.exports = {
   [events.RETURN_SUBSCRIPTION_FAILED]: {
     default: `${alertConfig.devTeamEmails}`
   },
-  [events.RETURN_SUBSCRIPTION_FAILED]: {
-    default: `${alertConfig.devTeamEmails}`
-  },
   [events.ETL_PROCESS_ERROR]: {
     default: `${alertConfig.devTeamEmails}`
   }
