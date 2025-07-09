@@ -13,6 +13,9 @@ data:
   {{- if .Values.container.devTeamEmails }}
   DEV_TEAM_EMAILS: {{ quote .Values.container.devTeamEmails }}
   {{- end }}
+  {{- if .Values.container.dwhEmails }}
+  DWH_EMAILS: {{ quote .Values.container.dwhEmails }}
+  {{- end }}
   FFC_ENVIRONMENT: {{ quote .Values.environmentCode }}
   NOTIFY_API_KEY: {{ quote .Values.container.notifyApiKey }}
   SEND_ALERTS: {{ quote .Values.container.sendAlerts }}
