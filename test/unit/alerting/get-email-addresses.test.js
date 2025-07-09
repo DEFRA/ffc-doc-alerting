@@ -27,6 +27,6 @@ describe('get email addresses', () => {
 
   test('should return correct email addresses for ETL_PROCESS_ERROR', () => {
     const emails = getEmailAddresses(ETL_PROCESS_ERROR)
-    expect(emails).toEqual(`${alertConfig.devTeamEmails}`)
+    expect(emails).toEqual(`${alertConfig.devTeamEmails};${alertConfig.dwhEmails}`)
   })
 })

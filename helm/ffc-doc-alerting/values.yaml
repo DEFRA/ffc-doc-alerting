@@ -34,6 +34,7 @@ container:
   alertSubscriptionAddress: ffc-doc-alert
   notifyApiKey:
   devTeamEmails:
+  dwhEmails:
   sendAlerts: true
 
 workloadIdentity: true
