@@ -13,5 +13,8 @@ module.exports = {
   },
   [events.ETL_PROCESS_ERROR]: {
     default: `${alertConfig.devTeamEmails};${alertConfig.dwhEmails}`
+  },
+  [events.PUBLISH_ERROR]: {
+    default: `${alertConfig.devTeamEmails}`
   }
 }
