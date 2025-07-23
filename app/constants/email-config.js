@@ -16,5 +16,8 @@ module.exports = {
   },
   [events.PUBLISH_ERROR]: {
     default: `${alertConfig.devTeamEmails}`
+  },
+  [events.ZERO_VALUE_STATEMENT]: {
+    default: `${alertConfig.devTeamEmails}`
   }
 }
