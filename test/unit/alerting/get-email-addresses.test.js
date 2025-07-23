@@ -3,6 +3,7 @@ const {
   SUBMIT_SUBSCRIPTION_FAILED,
   RETURN_SUBSCRIPTION_FAILED,
   ETL_PROCESS_ERROR,
+  PUBLISH_ERROR,
   ZERO_VALUE_STATEMENT
 } = require('../../../app/constants/events')
 
@@ -29,6 +30,11 @@ describe('get email addresses', () => {
   test('should return correct email addresses for ETL_PROCESS_ERROR', () => {
     const emails = getEmailAddresses(ETL_PROCESS_ERROR)
     expect(emails).toEqual(`${alertConfig.devTeamEmails};${alertConfig.dwhEmails}`)
+  })
+
+  test('should return empty string for PUBLISH_ERROR', () => {
+    const emails = getEmailAddresses(PUBLISH_ERROR)
+    expect(emails).toEqual(`${alertConfig.devTeamEmails}`)
   })
 
   test('should return correct email addresses for ZERO_VALUE_STATEMENT', () => {
