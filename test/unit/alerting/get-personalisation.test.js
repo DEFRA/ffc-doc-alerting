@@ -110,4 +110,61 @@ describe('get personalisation', () => {
     const result = getPersonalisation(event)
     expect(result.scheme).toBe(schemeNames[SFI])
   })
+  test('should include compact JSON in data_json containing event data fields', () => {
+    const result = getPersonalisation(event)
+    expect(typeof result.data_json).toBe('string')
+    expect(result.data_json).toContain(event.data.message)
+  })
+
+  test('should return pretty data without outer braces for ((data_pretty)) (stripOuter)', () => {
+    const result = getPersonalisation(event)
+    const trimmed = (result.data_pretty || '').trim()
+    expect(trimmed).not.toMatch(/^[[{]/)
+    expect(result.data_pretty).toContain(event.data.message)
+  })
+
+  test('should handle circular references by inserting [Circular] markers', () => {
+    const circularEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    circularEvent.data.circular = {}
+    circularEvent.data.circular.self = circularEvent.data.circular
+
+    const result = getPersonalisation(circularEvent)
+    expect(result.data_json).toContain('[Circular]')
+  })
+
+  test('should preview error stack and truncate when too many lines', () => {
+    const stackLines = Array.from({ length: 10 }, (_, i) => `line${i + 1}`).join('\n')
+    const stackEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    stackEvent.data.err = { stack: stackLines }
+
+    const result = getPersonalisation(stackEvent)
+    expect(result.data_pretty).toContain('... (truncated)')
+    expect(result.data_pretty).toContain('line1')
+  })
+
+  test('should fall back to error text when JSON.stringify throws', () => {
+    const badEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    badEvent.data.bad = {
+      toJSON: () => { throw new Error('cannot stringify') }
+    }
+
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    const result = getPersonalisation(badEvent)
+    expect(result.data_json).toContain('unable to stringify data')
+    expect(jest.isMockFunction(logSpy)).toBe(true)
+    expect(jest.isMockFunction(errorSpy)).toBe(true)
+
+    logSpy.mockRestore()
+    errorSpy.mockRestore()
+  })
+
+  test('should truncate very long JSON outputs with "... (truncated)" suffix', () => {
+    const longEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    longEvent.data.large = 'x'.repeat(11000)
+
+    const result = getPersonalisation(longEvent)
+    expect(result.data_json).toContain('... (truncated)')
+  })
 })
