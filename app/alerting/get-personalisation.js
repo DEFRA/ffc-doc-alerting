@@ -7,7 +7,7 @@ const { UNKNOWN } = require('../constants/unknown')
 const MAX_PERSONALISATION_LENGTH = 10000
 const STACK_PREVIEW_LINES = 5
 
-function safeStringify (obj, pretty = false, stripOuter = false) {
+const safeStringify = (obj, pretty = false, stripOuter = false) => {
   try {
     const seen = new WeakSet()
     const replacer = (key, value) => {
