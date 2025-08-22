@@ -7,24 +7,36 @@ const { UNKNOWN } = require('../constants/unknown')
 const MAX_PERSONALISATION_LENGTH = 10000
 const STACK_PREVIEW_LINES = 5
 
-const safeStringify = (obj, pretty = false, stripOuter = false) => {
-  try {
-    const seen = new WeakSet()
-    const replacer = (key, value) => {
-      if (value && typeof value === 'object') {
-        if (seen.has(value)) return '[Circular]'
-        seen.add(value)
-      }
+function getStackPreview (stack) {
+  if (typeof stack !== 'string') {
+    return stack
+  }
+  const lines = stack.split('\n').map(l => l.trim()).filter(Boolean)
+  const preview = lines.slice(0, STACK_PREVIEW_LINES).join('\n')
+  return lines.length > STACK_PREVIEW_LINES ? `${preview}\n... (truncated)` : preview
+}
 
-      if (key === 'stack' && typeof value === 'string') {
-        const lines = value.split('\n').map(l => l.trim()).filter(Boolean)
-        const preview = lines.slice(0, STACK_PREVIEW_LINES).join('\n')
-        return lines.length > STACK_PREVIEW_LINES ? `${preview}\n... (truncated)` : preview
+function createReplacer () {
+  const seen = new WeakSet()
+  return function replacer (key, value) {
+    if (value && typeof value === 'object') {
+      if (seen.has(value)) {
+        return '[Circular]'
       }
-
-      return value
+      seen.add(value)
     }
 
+    if (key === 'stack' && typeof value === 'string') {
+      return getStackPreview(value)
+    }
+
+    return value
+  }
+}
+
+const safeStringify = (obj, pretty = false, stripOuter = false) => {
+  try {
+    const replacer = createReplacer()
     let json = JSON.stringify(obj, replacer, pretty ? 2 : 0) || '{}'
 
     if (json.length > MAX_PERSONALISATION_LENGTH) {
@@ -33,14 +45,17 @@ const safeStringify = (obj, pretty = false, stripOuter = false) => {
 
     if (stripOuter) {
       const trimmed = json.trim()
-      if ((trimmed.startsWith('{') && trimmed.endsWith('}')) || (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+      const isObject = trimmed.startsWith('{') && trimmed.endsWith('}')
+      const isArray = trimmed.startsWith('[') && trimmed.endsWith(']')
+      if (isObject || isArray) {
         const inner = trimmed.slice(1, -1).trim()
         return inner.length === 0 ? '' : inner
       }
     }
 
     return json
-  } catch (e) {
+  } catch (err) {
+    console.error('safeStringify failed:', err)
     return pretty ? '{\n  "error": "unable to stringify data"\n}' : '{"error":"unable to stringify data"}'
   }
 }
