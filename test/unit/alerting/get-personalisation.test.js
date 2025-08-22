@@ -155,11 +155,9 @@ describe('get personalisation', () => {
     const result = getPersonalisation(badEvent)
     expect(result.data_json).toContain('unable to stringify data')
 
-    // Ensure error logging occurred and contains the expected message and an Error object
     expect(errorSpy).toHaveBeenCalled()
     expect(errorSpy).toHaveBeenCalledWith('safeStringify failed:', expect.any(Error))
 
-    // Ensure we didn't accidentally log to console.log
     expect(logSpy).not.toHaveBeenCalled()
 
     logSpy.mockRestore()
@@ -172,5 +170,53 @@ describe('get personalisation', () => {
 
     const result = getPersonalisation(longEvent)
     expect(result.data_json).toContain('... (truncated)')
+  })
+})
+
+describe('getPersonalisation public-API edge cases for coverage', () => {
+  test('empty object data -> data_pretty becomes empty string (stripOuter empty object)', () => {
+    const emptyEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    emptyEvent.data = {}
+
+    const result = getPersonalisation(emptyEvent)
+    expect(result.data_json).toBe('{}')
+    expect(result.data_pretty).toBe('')
+  })
+
+  test('empty array data -> data_pretty becomes empty string (stripOuter empty array)', () => {
+    const emptyArrayEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    emptyArrayEvent.data = []
+
+    const result = getPersonalisation(emptyArrayEvent)
+
+    expect(result.data_json).toBe('[]')
+    expect(result.data_pretty).toBe('')
+  })
+
+  test('stringify throws -> both compact and pretty fall back and error is logged', () => {
+    const badEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    badEvent.data.bad = {
+      toJSON: () => { throw new Error('cannot stringify') }
+    }
+
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    const result = getPersonalisation(badEvent)
+
+    expect(result.data_json).toContain('unable to stringify data')
+
+    const pretty = result.data_pretty || ''
+    expect(pretty).toContain('unable to stringify data')
+    expect(pretty.trim().startsWith('{')).toBe(true)
+    expect(pretty.trim().startsWith('[')).toBe(false)
+
+    expect(errorSpy).toHaveBeenCalled()
+    expect(errorSpy).toHaveBeenCalledWith('safeStringify failed:', expect.any(Error))
+
+    expect(logSpy).not.toHaveBeenCalled()
+
+    logSpy.mockRestore()
+    errorSpy.mockRestore()
   })
 })
