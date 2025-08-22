@@ -34,29 +34,42 @@ function createReplacer () {
   }
 }
 
+function truncateIfNeeded (json) {
+  if (json.length > MAX_PERSONALISATION_LENGTH) {
+    return json.slice(0, MAX_PERSONALISATION_LENGTH) + '... (truncated)'
+  }
+  return json
+}
+
+function stripOuterContent (json) {
+  const trimmed = json.trim()
+  const isObject = trimmed.startsWith('{') && trimmed.endsWith('}')
+  const isArray = trimmed.startsWith('[') && trimmed.endsWith(']')
+  if (isObject || isArray) {
+    const inner = trimmed.slice(1, -1).trim()
+    if (inner.length === 0) {
+      return ''
+    }
+    return inner
+  }
+  return json
+}
+
+function getFallbackString (pretty) {
+  if (pretty) {
+    return '{\n  "error": "unable to stringify data"\n}'
+  }
+  return '{"error":"unable to stringify data"}'
+}
+
 const safeStringify = (obj, pretty = false, stripOuter = false) => {
   try {
-    const replacer = createReplacer()
-    let json = JSON.stringify(obj, replacer, pretty ? 2 : 0) || '{}'
-
-    if (json.length > MAX_PERSONALISATION_LENGTH) {
-      json = json.slice(0, MAX_PERSONALISATION_LENGTH) + '... (truncated)'
-    }
-
-    if (stripOuter) {
-      const trimmed = json.trim()
-      const isObject = trimmed.startsWith('{') && trimmed.endsWith('}')
-      const isArray = trimmed.startsWith('[') && trimmed.endsWith(']')
-      if (isObject || isArray) {
-        const inner = trimmed.slice(1, -1).trim()
-        return inner.length === 0 ? '' : inner
-      }
-    }
-
-    return json
+    const json = JSON.stringify(obj, createReplacer(), pretty ? 2 : 0) || '{}'
+    const truncated = truncateIfNeeded(json)
+    return stripOuter ? stripOuterContent(truncated) : truncated
   } catch (err) {
     console.error('safeStringify failed:', err)
-    return pretty ? '{\n  "error": "unable to stringify data"\n}' : '{"error":"unable to stringify data"}'
+    return getFallbackString(pretty)
   }
 }
 

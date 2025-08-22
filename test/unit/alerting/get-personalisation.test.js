@@ -110,6 +110,7 @@ describe('get personalisation', () => {
     const result = getPersonalisation(event)
     expect(result.scheme).toBe(schemeNames[SFI])
   })
+
   test('should include compact JSON in data_json containing event data fields', () => {
     const result = getPersonalisation(event)
     expect(typeof result.data_json).toBe('string')
@@ -142,7 +143,7 @@ describe('get personalisation', () => {
     expect(result.data_pretty).toContain('line1')
   })
 
-  test('should fall back to error text when JSON.stringify throws', () => {
+  test('should fall back to error text when JSON.stringify throws and log the error', () => {
     const badEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
     badEvent.data.bad = {
       toJSON: () => { throw new Error('cannot stringify') }
@@ -153,8 +154,13 @@ describe('get personalisation', () => {
 
     const result = getPersonalisation(badEvent)
     expect(result.data_json).toContain('unable to stringify data')
-    expect(jest.isMockFunction(logSpy)).toBe(true)
-    expect(jest.isMockFunction(errorSpy)).toBe(true)
+
+    // Ensure error logging occurred and contains the expected message and an Error object
+    expect(errorSpy).toHaveBeenCalled()
+    expect(errorSpy).toHaveBeenCalledWith('safeStringify failed:', expect.any(Error))
+
+    // Ensure we didn't accidentally log to console.log
+    expect(logSpy).not.toHaveBeenCalled()
 
     logSpy.mockRestore()
     errorSpy.mockRestore()
