@@ -171,6 +171,112 @@ describe('get personalisation', () => {
     const result = getPersonalisation(longEvent)
     expect(result.data_json).toContain('... (truncated)')
   })
+
+  test('should format data as plain text without JSON syntax', () => {
+    const result = getPersonalisation(event)
+    expect(result.plain_text).toBeDefined()
+    expect(result.plain_text).toContain(`message: ${event.data.message}`)
+    expect(result.plain_text).not.toContain('"')
+    expect(result.plain_text).not.toContain('{')
+    expect(result.plain_text).not.toContain('}')
+  })
+
+  test('should handle nested objects in plain text format', () => {
+    event.data.nested = { key: 'value', num: 123 }
+    const result = getPersonalisation(event)
+    expect(result.plain_text).toContain('nested:')
+    expect(result.plain_text).toContain('  key: value')
+    expect(result.plain_text).toContain('  num: 123')
+  })
+
+  test('should format arrays in plain text with bullet points', () => {
+    event.data.items = ['one', 'two']
+    const result = getPersonalisation(event)
+    expect(result.plain_text).toContain('items:')
+    expect(result.plain_text).toContain('- one')
+    expect(result.plain_text).toContain('- two')
+  })
+
+  test('should handle null and undefined values in plain text', () => {
+    event.data.nullValue = null
+    event.data.undefinedValue = undefined
+
+    const result = getPersonalisation(event)
+    expect(result.plain_text).toContain('nullValue: null')
+    expect(result.plain_text).toContain('undefinedValue: null')
+  })
+
+  test('should handle Date objects in plain text format', () => {
+    const testDate = new Date('2023-01-01T12:00:00Z')
+    event.data.date = testDate
+
+    const result = getPersonalisation(event)
+    expect(result.plain_text).toContain(`date: ${testDate.toString()}`)
+  })
+
+  test('should fall back to error message when formatAsPlainText throws', () => {
+  // Mock console.error directly instead of using a spy
+    const originalConsoleError = console.error
+    console.error = jest.fn()
+
+    try {
+    // Create a truly problematic object with a getter that will throw
+    // when formatAsPlainText tries to access it during object traversal
+      const evilObject = {}
+      Object.defineProperty(evilObject, 'evil', {
+        enumerable: true,
+        get: function () { throw new Error('Evil property access') }
+      })
+      event.data.evil = evilObject
+
+      // This should trigger formatAsPlainText to throw
+      const result = getPersonalisation(event)
+
+      // Verify error logging behavior
+      expect(console.error).toHaveBeenCalled()
+
+      // Verify the content contains an error message
+      expect(result.plain_text).toBeDefined()
+      expect(result.plain_text).toContain('unable to stringify data')
+    } finally {
+    // Always restore console.error
+      console.error = originalConsoleError
+    }
+  })
+})
+
+describe('formatAsPlainText edge cases', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+    mockGetEnvironment.mockReturnValue(TEST_NAME)
+    mockGetScheme.mockReturnValue(schemeNames[SFI])
+
+    event = JSON.parse(JSON.stringify(require('../../mocks/event')))
+  })
+
+  test('should return empty string for empty objects', () => {
+    event.data = { emptyObj: {} }
+    const result = getPersonalisation(event)
+    expect(result.plain_text).toContain('emptyObj:')
+    expect(result.plain_text).not.toContain('emptyObj: {}')
+  })
+
+  test('should return empty string for empty arrays', () => {
+    event.data = { emptyArr: [] }
+    const result = getPersonalisation(event)
+    expect(result.plain_text).toContain('emptyArr:')
+    expect(result.plain_text).not.toContain('emptyArr: []')
+  })
+
+  test('should handle circular references gracefully', () => {
+    const circularEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
+    circularEvent.data.circular = {}
+    circularEvent.data.circular.self = circularEvent.data.circular
+
+    const result = getPersonalisation(circularEvent)
+    // We expect it to either handle it or fall back to data_pretty
+    expect(result.plain_text).toBeDefined()
+  })
 })
 
 describe('getPersonalisation public-API edge cases for coverage', () => {

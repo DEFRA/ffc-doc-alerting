@@ -73,6 +73,33 @@ const safeStringify = (obj, pretty = false, stripOuter = false) => {
   }
 }
 
+function formatAsPlainText (obj, indent = '') {
+  if (obj === null || obj === undefined) {
+    return 'null'
+  }
+
+  if (typeof obj !== 'object' || obj instanceof Date) {
+    return String(obj)
+  }
+
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) return ''
+    return obj.map(item => `${indent}- ${formatAsPlainText(item, indent + '  ')}`).join('\n')
+  }
+
+  const entries = Object.entries(obj)
+  if (entries.length === 0) return ''
+
+  return entries
+    .map(([key, value]) => {
+      if (typeof value === 'object' && value !== null && Object.keys(value).length > 0) {
+        return `${indent}${key}: \n${formatAsPlainText(value, indent + '  ')}`
+      }
+      return `${indent}${key}: ${formatAsPlainText(value, indent + '  ')}`
+    })
+    .join('\n')
+}
+
 const getPersonalisation = (event) => {
   const base = {
     ...event.data,
@@ -92,6 +119,14 @@ const getPersonalisation = (event) => {
 
   // ((data_pretty)) pretty-printed multi-line JSON
   base.data_pretty = safeStringify(event.data, true, true)
+
+  // ((plain_text)) key-value pairs without JSON syntax
+  try {
+    base.plain_text = formatAsPlainText(event.data)
+  } catch (err) {
+    console.error('formatAsPlainText failed: Output to JSON format', err)
+    base.plain_text = base.data_pretty
+  }
 
   return base
 }
