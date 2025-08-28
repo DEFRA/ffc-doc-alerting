@@ -93,9 +93,9 @@ function formatAsPlainText (obj, indent = '') {
   return entries
     .map(([key, value]) => {
       if (typeof value === 'object' && value !== null && Object.keys(value).length > 0) {
-        return `${indent}${key}: \n${formatAsPlainText(value, indent + '  ')}`
+        return `${indent}*${key}: \n${formatAsPlainText(value, indent + '  ')}`
       }
-      return `${indent}${key}: ${formatAsPlainText(value, indent + '  ')}`
+      return `${indent}*${key}: ${formatAsPlainText(value, indent + '  ')}`
     })
     .join('\n')
 }
