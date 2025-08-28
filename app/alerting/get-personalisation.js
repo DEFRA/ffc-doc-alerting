@@ -83,12 +83,16 @@ function formatAsPlainText (obj, indent = '') {
   }
 
   if (Array.isArray(obj)) {
-    if (obj.length === 0) return ''
+    if (obj.length === 0) {
+      return ''
+    }
     return obj.map(item => `${indent}- ${formatAsPlainText(item, indent + '  ')}`).join('\n')
   }
 
   const entries = Object.entries(obj)
-  if (entries.length === 0) return ''
+  if (entries.length === 0) {
+    return ''
+  }
 
   return entries
     .map(([key, value]) => {
