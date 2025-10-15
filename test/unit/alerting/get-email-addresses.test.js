@@ -4,7 +4,8 @@ const {
   RETURN_SUBSCRIPTION_FAILED,
   ETL_PROCESS_ERROR,
   PUBLISH_ERROR,
-  ZERO_VALUE_STATEMENT
+  ZERO_VALUE_STATEMENT,
+  DUPLICATE_RECORD
 } = require('../../../app/constants/events')
 
 const { alertConfig } = require('../../../app/config')
@@ -39,6 +40,11 @@ describe('get email addresses', () => {
 
   test('should return correct email addresses for ZERO_VALUE_STATEMENT', () => {
     const emails = getEmailAddresses(ZERO_VALUE_STATEMENT)
+    expect(emails).toEqual(`${alertConfig.devTeamEmails}`)
+  })
+
+  test('should return correct email addresses for DUPLICATE_RECORD', () => {
+    const emails = getEmailAddresses(DUPLICATE_RECORD)
     expect(emails).toEqual(`${alertConfig.devTeamEmails}`)
   })
 })
