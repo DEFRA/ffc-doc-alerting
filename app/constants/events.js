@@ -6,5 +6,6 @@ module.exports = {
   PUBLISH_ERROR: 'uk.gov.defra.ffc.doc.warning.publish.error',
   ZERO_VALUE_STATEMENT: 'uk.gov.defra.ffc.doc.warning.zero.value.statement',
   DATA_PROCESSING_ERROR: 'uk.gov.defra.ffc.doc.data.processing.error',
-  DATA_PUBLISHING_ERROR: 'uk.gov.defra.ffc.doc.data.publishing.error'
+  DATA_PUBLISHING_ERROR: 'uk.gov.defra.ffc.doc.data.publishing.error',
+  DUPLICATE_RECORD: 'uk.gov.defra.ffc.doc.duplicate.record'
 }
