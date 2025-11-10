@@ -16,28 +16,19 @@ const { processAlert } = require('../../../app/alerting/process-alert')
 
 let event
 
-describe('process alert', () => {
+describe('processAlert', () => {
   beforeEach(() => {
     jest.resetAllMocks()
-
     event = JSON.parse(JSON.stringify(require('../../mocks/event')))
   })
 
-  test('should process PROCESSING_SUBSCRIPTION_FAILED event', async () => {
-    event.type = PROCESSING_SUBSCRIPTION_FAILED
+  test.each([
+    [PROCESSING_SUBSCRIPTION_FAILED, PROCESSING_SUBSCRIPTION_FAILED_TEMPLATE],
+    [SUBMIT_SUBSCRIPTION_FAILED, SUBMIT_SUBSCRIPTION_FAILED_TEMPLATE],
+    [RETURN_SUBSCRIPTION_FAILED, RETURN_SUBSCRIPTION_FAILED_TEMPLATE]
+  ])('should process %s event', async (eventType, template) => {
+    event.type = eventType
     await processAlert(event)
-    expect(mockSendAlerts).toHaveBeenCalledWith(RECIPIENTS, PROCESSING_SUBSCRIPTION_FAILED_TEMPLATE, event)
-  })
-
-  test('should process SUBMIT_SUBSCRIPTION_FAILED event', async () => {
-    event.type = SUBMIT_SUBSCRIPTION_FAILED
-    await processAlert(event)
-    expect(mockSendAlerts).toHaveBeenCalledWith(RECIPIENTS, SUBMIT_SUBSCRIPTION_FAILED_TEMPLATE, event)
-  })
-
-  test('should process RETURN_SUBSCRIPTION_FAILED event', async () => {
-    event.type = RETURN_SUBSCRIPTION_FAILED
-    await processAlert(event)
-    expect(mockSendAlerts).toHaveBeenCalledWith(RECIPIENTS, RETURN_SUBSCRIPTION_FAILED_TEMPLATE, event)
+    expect(mockSendAlerts).toHaveBeenCalledWith(RECIPIENTS, template, event)
   })
 })
