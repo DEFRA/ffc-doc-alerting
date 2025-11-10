@@ -145,7 +145,7 @@ describe('getPersonalisation', () => {
       const evilObject = {}
       Object.defineProperty(evilObject, 'evil', {
         enumerable: true,
-        get() { throw new Error('Evil property access') }
+        get () { throw new Error('Evil property access') }
       })
       event.data.evil = evilObject
       const result = getPersonalisation(event)
