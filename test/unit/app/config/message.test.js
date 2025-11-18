@@ -7,6 +7,7 @@ describe('message config Joi validation', () => {
 
   beforeEach(() => {
     process.env = { ...ORIGINAL_ENV }
+    jest.resetModules()
   })
 
   afterEach(() => {
@@ -14,7 +15,6 @@ describe('message config Joi validation', () => {
   })
 
   test('should export merged alertSubscription object with all required fields', () => {
-    jest.resetModules()
     process.env.MESSAGE_QUEUE_HOST = 'localhost'
     process.env.MESSAGE_QUEUE_USER = 'user'
     process.env.MESSAGE_QUEUE_PASSWORD = 'pass'
@@ -38,7 +38,6 @@ describe('message config Joi validation', () => {
   })
 
   test('should set useCredentialChain and appInsights when NODE_ENV is production', () => {
-    jest.resetModules()
     process.env.MESSAGE_QUEUE_HOST = 'localhost'
     process.env.MESSAGE_QUEUE_USER = 'user'
     process.env.MESSAGE_QUEUE_PASSWORD = 'pass'
@@ -55,7 +54,6 @@ describe('message config Joi validation', () => {
   })
 
   test('should allow managedIdentityClientId to be undefined', () => {
-    jest.resetModules()
     process.env.MESSAGE_QUEUE_HOST = 'localhost'
     process.env.MESSAGE_QUEUE_USER = 'user'
     process.env.MESSAGE_QUEUE_PASSWORD = 'pass'

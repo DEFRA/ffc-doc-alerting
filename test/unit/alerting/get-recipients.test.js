@@ -28,26 +28,37 @@ describe('get recipients', () => {
   })
 
   test('should return empty array if no email addresses', () => {
-    mockGetEmailAddresses.mockReturnValue(undefined)
+    mockGetEmailAddresses.mockImplementationOnce(() => undefined)
     const result = getRecipients(event)
     expect(result).toStrictEqual([])
   })
 
   test('should return array item for each email', () => {
-    mockGetEmailAddresses.mockReturnValue(`${EMAIL};${EMAIL}`)
+    mockGetEmailAddresses.mockImplementationOnce(() => `${EMAIL};${EMAIL}`)
     const result = getRecipients(event)
     expect(result).toStrictEqual([EMAIL, EMAIL])
   })
 
   test('should remove whitespace from emails', () => {
-    mockGetEmailAddresses.mockReturnValue(` ${EMAIL} ; ${EMAIL} `)
+    mockGetEmailAddresses.mockImplementationOnce(() => ` ${EMAIL} ; ${EMAIL} `)
     const result = getRecipients(event)
     expect(result).toStrictEqual([EMAIL, EMAIL])
   })
 
   test('should remove empty emails', () => {
-    mockGetEmailAddresses.mockReturnValue(` ${EMAIL} ;; ${EMAIL} `)
+    mockGetEmailAddresses.mockImplementationOnce(() => ` ${EMAIL} ;; ${EMAIL} `)
     const result = getRecipients(event)
     expect(result).toStrictEqual([EMAIL, EMAIL])
+  })
+
+  test('should handle newlines and mixed delimiters', () => {
+    mockGetEmailAddresses.mockImplementationOnce(() => ` ${EMAIL}\n; ${EMAIL} ; \n`)
+    const result = getRecipients(event)
+    expect(result).toStrictEqual([EMAIL, EMAIL])
+  })
+
+  test('should always return an array', () => {
+    const result = getRecipients(event)
+    expect(Array.isArray(result)).toBe(true)
   })
 })
