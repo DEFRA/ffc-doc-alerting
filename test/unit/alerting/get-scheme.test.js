@@ -5,7 +5,6 @@ const {
   VET_VISITS,
   CS,
   BPS,
-  FDMR,
   MANUAL,
   SFI23,
   DELINKED
@@ -21,7 +20,6 @@ describe('getScheme', () => {
     [VET_VISITS, 'Vet Visits'],
     [CS, 'Countryside Stewardship'],
     [BPS, 'BPS'],
-    [FDMR, 'FDMR'],
     [MANUAL, 'Manual Invoice'],
     [SFI23, 'SFI 23'],
     [DELINKED, 'Delinked Payments']
