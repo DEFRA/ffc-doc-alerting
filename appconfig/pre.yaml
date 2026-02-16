@@ -6,9 +6,6 @@ container:
   azureStorageAccountName: preffcdocst1001
   endpointEnabled: true
   redisHostname: PREFFCINFRD1001.redis.cache.windows.net
-ingress:
-  server: azure.defra.cloud
-  endpoint: ffc-doc-alerting-pre
 secretProviderClass:
   azure:
     keyvaultName: PREFFCINFKV1001
