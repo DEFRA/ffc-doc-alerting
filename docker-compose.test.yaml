@@ -21,6 +21,7 @@ services:
       MESSAGE_QUEUE_HOST: servicebus-emulator
       MESSAGE_QUEUE_USER: RootManageSharedAccessKey
       MESSAGE_QUEUE_PASSWORD: SAS_KEY_VALUE
+      ALERT_TOPIC_ADDRESS: ffc-doc-alerting
 
   sqledge:
     container_name: "sqledge"
