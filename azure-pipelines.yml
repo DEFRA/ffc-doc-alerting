@@ -39,6 +39,28 @@ extends:
     Type: kubernetes # Optional: kubernetes (default), npm, functions, nuget
     npmLegacyPeerDeps: false # Optional: default is false
     dockerFilePath: Dockerfile # Optional default is Dockerfile
-    prDeployment: ${{ parameters.prDeployment }}
-    branchDeployment: ${{ parameters.branchDeployment }}
-    sndDeployment: ${{ parameters.sndDeployment }}
+    variableGroupName: ffc-doc-alerting-env-var
+    pr_params:
+      container.notifyApiKey: ${{ eq(variables['pr_notifyApiKey'], 'true') }}
+      container.devTeamEmails: $(pr_devTeamEmails)
+      container.dwhEmails: $(pr_dwhEmails)
+    snd2_params:
+      container.notifyApiKey: ${{ eq(variables['snd2_notifyApiKey'], 'true') }}
+      container.devTeamEmails: $(snd2_devTeamEmails)
+      container.dwhEmails: $(snd2_dwhEmails)
+    dev_params:
+      container.notifyApiKey: ${{ eq(variables['dev_notifyApiKey'], 'true') }}
+      container.devTeamEmails: $(dev_devTeamEmails)
+      container.dwhEmails: $(dev_dwhEmails)
+    test_params:
+      container.notifyApiKey: ${{ eq(variables['test_notifyApiKey'], 'true') }}
+      container.devTeamEmails: $(test_devTeamEmails)
+      container.dwhEmails: $(test_dwhEmails)
+    pre_params:
+      container.notifyApiKey: ${{ eq(variables['pre_notifyApiKey'], 'true') }}
+      container.devTeamEmails: $(pre_devTeamEmails)
+      container.dwhEmails: $(pre_dwhEmails)
+    prd_params:
+      container.notifyApiKey: ${{ eq(variables['prd_notifyApiKey'], 'true') }}
+      container.devTeamEmails: $(prd_devTeamEmails)
+      container.dwhEmails: $(prd_dwhEmails)
