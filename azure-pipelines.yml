@@ -41,26 +41,32 @@ extends:
     dockerFilePath: Dockerfile # Optional default is Dockerfile
     variableGroupName: ffc-doc-alerting-env-var
     pr_params:
-      container.notifyApiKey: $('pr_notifyApiKey')
+      container.notifyApiKey: $(pr_notifyApiKey)
       container.devTeamEmails: $(pr_devTeamEmails)
       container.dwhEmails: $(pr_dwhEmails)
+      container.sendAlerts: $(pr_sendAlerts)
     snd2_params:
-      container.notifyApiKey: $('snd2_notifyApiKey')
+      container.notifyApiKey: $(snd2_notifyApiKey)
       container.devTeamEmails: $(snd2_devTeamEmails)
       container.dwhEmails: $(snd2_dwhEmails)
+      container.sendAlerts: $(snd2_sendAlerts)
     dev_params:
-      container.notifyApiKey: $('dev_notifyApiKey')
+      container.notifyApiKey: $(dev_notifyApiKey)
       container.devTeamEmails: $(dev_devTeamEmails)
       container.dwhEmails: $(dev_dwhEmails)
+      container.sendAlerts: $(dev_sendAlerts)
     test_params:
-      container.notifyApiKey: $('test_notifyApiKey')
+      container.notifyApiKey: $(test_notifyApiKey)
       container.devTeamEmails: $(test_devTeamEmails)
       container.dwhEmails: $(test_dwhEmails)
+      container.sendAlerts: $(test_sendAlerts)
     pre_params:
-      container.notifyApiKey: $('pre_notifyApiKey')
+      container.notifyApiKey: $(pre_notifyApiKey)
       container.devTeamEmails: $(pre_devTeamEmails)
       container.dwhEmails: $(pre_dwhEmails)
+      container.sendAlerts: $(pre_sendAlerts)
     prd_params:
-      container.notifyApiKey: $('prd_notifyApiKey')
+      container.notifyApiKey: $(prd_notifyApiKey)
       container.devTeamEmails: $(prd_devTeamEmails)
       container.dwhEmails: $(prd_dwhEmails)
+      container.sendAlerts: $(prd_sendAlerts)
