@@ -29,7 +29,6 @@ describe('message config Joi validation', () => {
       username: 'user',
       password: 'pass',
       useCredentialChain: false,
-      appInsights: undefined,
       managedIdentityClientId: 'client-id',
       address: 'address',
       topic: 'topic',
@@ -50,7 +49,6 @@ describe('message config Joi validation', () => {
     const { alertSubscription } = require(CONFIG_PATH)
 
     expect(alertSubscription.useCredentialChain).toBe(true)
-    expect(alertSubscription.appInsights).toBeDefined()
   })
 
   test('should allow managedIdentityClientId to be undefined', () => {
