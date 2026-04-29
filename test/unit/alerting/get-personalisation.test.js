@@ -45,11 +45,9 @@ describe('getPersonalisation', () => {
     ['contractNumber', 'contractNumber'],
     ['paymentRequestNumber', 'paymentRequestNumber']
   ])('should return correct or UNKNOWN value for %s', (fieldName) => {
-    // field exists
     let result = getPersonalisation(event)
     expect(result[fieldName]).toBe(event.data[fieldName])
 
-    // field missing
     delete event.data[fieldName]
     result = getPersonalisation(event)
     expect(result[fieldName]).toBe(UNKNOWN)
@@ -74,6 +72,7 @@ describe('getPersonalisation', () => {
     circularEvent.data.circular.self = circularEvent.data.circular
     const result = getPersonalisation(circularEvent)
     expect(result.data_json).toContain('[Circular]')
+    expect(result.data_pretty).toContain('[Circular]')
   })
 
   test('should truncate long error stacks with "... (truncated)"', () => {
@@ -90,8 +89,8 @@ describe('getPersonalisation', () => {
     const badEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
     badEvent.data.bad = { toJSON: () => { throw new Error('cannot stringify') } }
 
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => { })
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => { })
 
     const result = getPersonalisation(badEvent)
     expect(result.data_json).toContain('unable to stringify data')
@@ -197,8 +196,8 @@ describe('getPersonalisation public API edge cases', () => {
     const badEvent = JSON.parse(JSON.stringify(require('../../mocks/event')))
     badEvent.data.bad = { toJSON: () => { throw new Error('cannot stringify') } }
 
-    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
-    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => { })
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => { })
 
     const result = getPersonalisation(badEvent)
     expect(result.data_json).toContain('unable to stringify data')
@@ -208,5 +207,28 @@ describe('getPersonalisation public API edge cases', () => {
 
     logSpy.mockRestore()
     errorSpy.mockRestore()
+  })
+})
+
+describe('getPersonalisation specific fields', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+    mockGetEnvironment.mockReturnValue(TEST_NAME)
+    mockGetScheme.mockReturnValue(schemeNames[SFI])
+    event = JSON.parse(JSON.stringify(require('../../mocks/event')))
+  })
+
+  test.each([
+    ['schemeName'],
+    ['agreementNumber'],
+    ['endDate'],
+    ['filename']
+  ])('should return correct or UNKNOWN value for %s', (fieldName) => {
+    let result = getPersonalisation(event)
+    expect(result[fieldName]).toBe(event.data[fieldName] ?? UNKNOWN)
+
+    delete event.data[fieldName]
+    result = getPersonalisation(event)
+    expect(result[fieldName]).toBe(UNKNOWN)
   })
 })

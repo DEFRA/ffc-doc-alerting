@@ -23,16 +23,16 @@
   "license": "OGL-UK-3.0",
   "dependencies": {
     "applicationinsights": "2.9.6",
-    "ffc-messaging": "2.10.3",
+    "ffc-messaging": "2.10.6",
     "joi": "17.7.1",
     "log-timestamp": "0.3.0",
     "moment": "2.29.4",
-    "notifications-node-client": "8.2.1"
+    "notifications-node-client": "8.3.2"
   },
   "devDependencies": {
     "eslint": "9.39.1",
     "jest": "29.6.4",
-    "jest-junit": "14.0.1",
+    "jest-junit": "17.0.0",
     "neostandard": "0.12.2",
     "nodemon": "3.0.1"
   },

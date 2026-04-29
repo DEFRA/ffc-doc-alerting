@@ -115,7 +115,11 @@ const getPersonalisation = (event) => {
     invoiceNumber: event.data?.invoiceNumber ?? UNKNOWN,
     contractNumber: event.data?.contractNumber ?? UNKNOWN,
     paymentRequestNumber: event.data?.paymentRequestNumber ?? UNKNOWN,
-    scheme: getScheme(event.data?.schemeId)
+    scheme: getScheme(event.data?.schemeId),
+    schemeName: event.data?.scheme ?? UNKNOWN,
+    agreementNumber: event.data?.agreementNumber ?? UNKNOWN,
+    endDate: event.data?.endDate ?? UNKNOWN,
+    filename: event.data?.filename ?? UNKNOWN
   }
 
   // ((data_json)) compact single-line JSON

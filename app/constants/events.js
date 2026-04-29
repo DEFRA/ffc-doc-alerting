@@ -8,5 +8,7 @@ module.exports = {
   DATA_PROCESSING_ERROR: 'uk.gov.defra.ffc.doc.data.processing.error',
   DATA_PUBLISHING_ERROR: 'uk.gov.defra.ffc.doc.data.publishing.error',
   DUPLICATE_RECORD: 'uk.gov.defra.ffc.doc.duplicate.record',
-  DATA_STATEMENT_RECEIVER_ERROR: 'uk.gov.defra.ffc.doc.data.statement.receiver.error'
+  DATA_STATEMENT_RECEIVER_ERROR: 'uk.gov.defra.ffc.doc.data.statement.receiver.error',
+  RETENTION_DATA_REJECTED: 'uk.gov.defra.fcp.pds.retention.data.rejected',
+  RETENTION_FILE_REJECTED: 'uk.gov.defra.fcp.pds.retention.file.rejected'
 }
