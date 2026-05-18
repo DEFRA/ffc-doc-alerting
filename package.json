@@ -22,7 +22,7 @@
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@azure/monitor-opentelemetry": "1.16.0",
+    "@azure/monitor-opentelemetry": "1.18.0",
     "ffc-messaging": "2.10.6",
     "joi": "17.7.1",
     "log-timestamp": "0.3.0",
@@ -35,6 +35,9 @@
     "jest-junit": "17.0.0",
     "neostandard": "0.12.2",
     "nodemon": "3.0.1"
+  },
+  "overrides": {
+    "protobufjs": "8.0.2"
   },
   "nodemonConfig": {
     "ignore": [
