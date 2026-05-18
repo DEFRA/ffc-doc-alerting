@@ -1,6 +1,6 @@
 {
   "name": "ffc-doc-alerting",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Publish alerts from Document Hub warnings",
   "homepage": "https://github.com/DEFRA/ffc-doc-alerting",
   "main": "app/index.js",
@@ -22,19 +22,22 @@
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@azure/monitor-opentelemetry": "1.16.0",
-    "ffc-messaging": "2.10.3",
+    "@azure/monitor-opentelemetry": "1.18.0",
+    "ffc-messaging": "2.10.6",
     "joi": "17.7.1",
     "log-timestamp": "0.3.0",
     "moment": "2.29.4",
-    "notifications-node-client": "8.2.1"
+    "notifications-node-client": "8.3.2"
   },
   "devDependencies": {
     "eslint": "9.39.1",
     "jest": "29.6.4",
-    "jest-junit": "14.0.1",
+    "jest-junit": "17.0.0",
     "neostandard": "0.12.2",
     "nodemon": "3.0.1"
+  },
+  "overrides": {
+    "protobufjs": "8.0.2"
   },
   "nodemonConfig": {
     "ignore": [
