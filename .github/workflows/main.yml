@@ -14,8 +14,4 @@ jobs:
     uses: DEFRA/ffc-shared-actions/.github/workflows/version-bump.yml@main
     with:
       node-version: '24'
-    secrets:
-      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-      GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
-      GPG_EMAIL: ${{ secrets.GPG_EMAIL }}
-      GPG_NAME: ${{ secrets.GPG_NAME }}
+    secrets: inherit
