@@ -19,4 +19,3 @@ jobs:
       GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
       GPG_EMAIL: ${{ secrets.GPG_EMAIL }}
       GPG_NAME: ${{ secrets.GPG_NAME }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
