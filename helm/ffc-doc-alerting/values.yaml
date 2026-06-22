@@ -36,6 +36,7 @@ container:
   devTeamEmails:
   dwhEmails:
   sendAlerts: true
+  azureLogLevel: error
 
 workloadIdentity: true
 

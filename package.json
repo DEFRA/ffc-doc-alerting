@@ -19,13 +19,14 @@
   "contributors": [
     "John Barnard john.barnard.external@atos.net",
     "Sam Plackett samuel.plackett@atos.net",
-    "Leigh Godson leigh.godson@atos.net"
+    "Leigh Godson leigh.godson@atos.net",
+    "Alistair Wishart alistair.wishart@atos.net"
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@azure/monitor-opentelemetry": "1.18.0",
     "ffc-messaging": "2.10.6",
-    "joi": "17.7.1",
+    "joi": "18.2.1",
     "log-timestamp": "0.3.0",
     "moment": "2.29.4",
     "notifications-node-client": "8.3.2"
@@ -39,7 +40,11 @@
     "nodemon": "3.0.1"
   },
   "overrides": {
-    "protobufjs": "8.2.0"
+    "protobufjs": "8.6.3",
+    "uuid": "11.1.1",
+    "joi": "18.2.1",
+    "js-yaml": "4.2.0",
+    "@opentelemetry/core": "2.8.0"
   },
   "nodemonConfig": {
     "ignore": [
