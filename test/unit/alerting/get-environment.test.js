@@ -3,7 +3,8 @@ const { alertConfig: mockAlertConfig } = require('../../../app/config')
 
 const {
   LOCAL,
-  SANDPIT,
+  SANDPIT1,
+  SANDPIT2,
   DEVELOPMENT,
   TEST,
   PRE_PRODUCTION,
@@ -12,7 +13,8 @@ const {
 
 const {
   LOCAL_NAME,
-  SANDPIT_NAME,
+  SANDPIT1_NAME,
+  SANDPIT2_NAME,
   DEVELOPMENT_NAME,
   TEST_NAME,
   PRE_PRODUCTION_NAME,
@@ -25,7 +27,8 @@ const { getEnvironment } = require('../../../app/alerting/get-environment')
 describe('getEnvironment', () => {
   test.each([
     [LOCAL, LOCAL_NAME],
-    [SANDPIT, SANDPIT_NAME],
+    [SANDPIT1, SANDPIT1_NAME],
+    [SANDPIT2, SANDPIT2_NAME],
     [DEVELOPMENT, DEVELOPMENT_NAME],
     [TEST, TEST_NAME],
     [PRE_PRODUCTION, PRE_PRODUCTION_NAME],
@@ -37,7 +40,7 @@ describe('getEnvironment', () => {
   })
 
   test('should return UNKNOWN for unrecognised environment', () => {
-    mockAlertConfig.environment = 'snd2'
+    mockAlertConfig.environment = 'fake-env'
     const result = getEnvironment()
     expect(result).toBe(UNKNOWN)
   })
