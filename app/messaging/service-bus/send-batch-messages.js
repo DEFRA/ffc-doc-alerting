@@ -3,7 +3,7 @@ const { enrichMessage } = require('./enrich-message')
 const { retry } = require('./retry')
 
 const sendBatchMessages = async (sender, messages, options) => {
-  const send = async (batch) => retry(async () => sender.sendMessages(batch, options))
+  const send = async (currentBatch) => retry(async () => sender.sendMessages(currentBatch, options))
   let batch = await sender.createMessageBatch()
 
   for (const message of messages) {
