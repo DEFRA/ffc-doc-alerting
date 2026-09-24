@@ -1,13 +1,8 @@
 jest.mock('../../../app/alerting/get-environment')
 const { getEnvironment: mockGetEnvironment } = require('../../../app/alerting/get-environment')
 
-jest.mock('../../../app/alerting/get-scheme')
-const { getScheme: mockGetScheme } = require('../../../app/alerting/get-scheme')
-
 const { TEST_NAME } = require('../../../app/constants/environment-names')
-const { SFI } = require('../../../app/constants/schemes')
 const { UNKNOWN } = require('../../../app/constants/unknown')
-const schemeNames = require('../../../app/constants/scheme-names')
 
 const { getPersonalisation } = require('../../../app/alerting/get-personalisation')
 
@@ -17,7 +12,6 @@ describe('getPersonalisation', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     mockGetEnvironment.mockReturnValue(TEST_NAME)
-    mockGetScheme.mockReturnValue(schemeNames[SFI])
     event = JSON.parse(JSON.stringify(require('../../mocks/event')))
   })
 
@@ -51,12 +45,6 @@ describe('getPersonalisation', () => {
     delete event.data[fieldName]
     result = getPersonalisation(event)
     expect(result[fieldName]).toBe(UNKNOWN)
-  })
-
-  test('should resolve scheme name via getScheme', () => {
-    const result = getPersonalisation(event)
-    expect(mockGetScheme).toHaveBeenCalledWith(event.data.schemeId)
-    expect(result.scheme).toBe(schemeNames[SFI])
   })
 
   test('should include compact JSON and pretty formatted data', () => {
@@ -160,7 +148,6 @@ describe('formatAsPlainText edge cases', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     mockGetEnvironment.mockReturnValue(TEST_NAME)
-    mockGetScheme.mockReturnValue(schemeNames[SFI])
     event = JSON.parse(JSON.stringify(require('../../mocks/event')))
   })
 
@@ -214,7 +201,6 @@ describe('getPersonalisation specific fields', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     mockGetEnvironment.mockReturnValue(TEST_NAME)
-    mockGetScheme.mockReturnValue(schemeNames[SFI])
     event = JSON.parse(JSON.stringify(require('../../mocks/event')))
   })
 
