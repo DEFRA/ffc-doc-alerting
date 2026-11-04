@@ -17,6 +17,7 @@ services:
     environment:
       NOTIFY_API_KEY: A_TEST_KEY
       DEV_TEAM_EMAILS: testDev@test.com
+      DWH_EMAILS: testDWH@test.com
       MESSAGE_QUEUE_HOST: servicebus-emulator
       MESSAGE_QUEUE_USER: RootManageSharedAccessKey
       MESSAGE_QUEUE_PASSWORD: SAS_KEY_VALUE
