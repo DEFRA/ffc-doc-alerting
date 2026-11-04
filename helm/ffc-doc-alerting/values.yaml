@@ -34,7 +34,6 @@ container:
   alertSubscriptionAddress: ffc-doc-alert
   notifyApiKey:
   devTeamEmails:
-  dwhEmails:
   sendAlerts: true
   azureLogLevel: error
 
