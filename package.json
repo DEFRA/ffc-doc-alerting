@@ -27,7 +27,7 @@
   "dependencies": {
     "@azure/monitor-opentelemetry": "1.20.0",
     "@azure/service-bus": "7.9.5",
-    "joi": "18.3.1",
+    "joi": "18.3.2",
     "log-timestamp": "0.3.0",
     "moment": "2.31.0",
     "notifications-node-client": "8.3.2"
