@@ -21,13 +21,14 @@
     "John Barnard john.barnard.external@atos.net",
     "Sam Plackett samuel.plackett@atos.net",
     "Leigh Godson leigh.godson@atos.net",
-    "Alistair Wishart alistair.wishart@atos.net"
+    "Alistair Wishart alistair.wishart@atos.net",
+    "Oliver Lewington oliver.2.lewington@atos.net"
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
     "@azure/monitor-opentelemetry": "1.20.0",
     "@azure/service-bus": "7.9.5",
-    "joi": "18.3.2",
+    "joi": "18.2.9",
     "log-timestamp": "0.3.0",
     "moment": "2.31.0",
     "notifications-node-client": "8.3.2"
