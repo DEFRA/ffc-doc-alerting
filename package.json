@@ -1,6 +1,6 @@
 {
   "name": "ffc-doc-alerting",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "Publish alerts from Document Hub warnings",
   "homepage": "https://github.com/DEFRA/ffc-doc-alerting",
   "main": "app/index.js",
@@ -11,6 +11,7 @@
     "test:lint": "eslint",
     "test:lint:fix": "eslint --fix",
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --coverage=false --onlyChanged --watch --runInBand --no-cache",
+    "test:sonar": "./scripts/sonar",
     "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext js --legacy-watch app/index.js",
     "prepare": "husky"
@@ -20,7 +21,8 @@
     "John Barnard john.barnard.external@atos.net",
     "Sam Plackett samuel.plackett@atos.net",
     "Leigh Godson leigh.godson@atos.net",
-    "Alistair Wishart alistair.wishart@atos.net"
+    "Alistair Wishart alistair.wishart@atos.net",
+    "Oliver Lewington oliver.2.lewington@atos.net"
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
@@ -34,10 +36,10 @@
   "devDependencies": {
     "eslint": "9.39.1",
     "husky": "9.1.7",
-    "jest": "29.6.4",
+    "jest": "30.5.2",
     "jest-junit": "17.0.0",
     "neostandard": "0.12.2",
-    "nodemon": "3.0.1"
+    "nodemon": "3.1.14"
   },
   "nodemonConfig": {
     "ignore": [
